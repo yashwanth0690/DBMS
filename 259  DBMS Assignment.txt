@@ -1,0 +1,127 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.40 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| student            |
++--------------------+
+4 rows in set (0.01 sec)
+
+mysql> use student;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_student |
++-------------------+
+| customer          |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> create table SD(
+    -> SID int,
+    -> Name varchar(50),
+    -> Address varchar(50)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into SD(SID,Name,Address)
+    -> values(1,'Yashwaanth','Adilabad');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into SD(SID,Name,Address) values(2,'Ashish','Nizambad');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into SD(SID,Name,Address) values(3,'Raju','gajwal');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into SD(SID,Name,Address) values(4,'Pranay','siddipet');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into SD(SID,Name,Address) values(5,'Dhanush','khammam');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from SD;
++------+------------+----------+
+| SID  | Name       | Address  |
++------+------------+----------+
+|    1 | Yashwaanth | Adilabad |
+|    2 | Ashish     | Nizambad |
+|    3 | Raju       | gajwal   |
+|    4 | Pranay     | siddipet |
+|    5 | Dhanush    | khammam  |
++------+------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> create table SM(
+    -> ID int,
+    -> Name varchar(50),
+    -> Marks int,
+    -> Age int
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into SM(ID,Name,Marks,Age)
+    -> values(1,'Rohit',58,42);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into SM(ID,Name,Marks,Age)
+    -> values(2,'Yashwanth',60,45);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into SM(ID,Name,Marks,Age)
+    -> values(3,'Ashish',42,65);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from SM;
++------+-----------+-------+------+
+| ID   | Name      | Marks | Age  |
++------+-----------+-------+------+
+|    1 | Rohit     |    58 |   42 |
+|    2 | Yashwanth |    60 |   45 |
+|    3 | Ashish    |    42 |   65 |
++------+-----------+-------+------+
+3 rows in set (0.00 sec)
+
+mysql> create view Details as
+    -> select Name,Address from SD
+    -> where SID<5;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from Details;
++------------+----------+
+| Name       | Address  |
++------------+----------+
+| Yashwaanth | Adilabad |
+| Ashish     | Nizambad |
+| Raju       | gajwal   |
+| Pranay     | siddipet |
++------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> create view Marks as
+    -> select SM.ID,SD.Name,SD.Address,SM.Marks from SD,SM
+    -> where SD.Name=SM.Name;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from Marks;
++------+--------+----------+-------+
+| ID   | Name   | Address  | Marks |
++------+--------+----------+-------+
+|    3 | Ashish | Nizambad |    42 |
++------+--------+----------+-------+
+1 row in set (0.00 sec)
